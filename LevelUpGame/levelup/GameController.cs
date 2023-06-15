@@ -8,39 +8,40 @@ namespace levelup
 
         public record struct GameStatus(
             // TODO: Add other status data
-            String characterName,
+            string characterName,
             Point currentPosition,
             int moveCount
-            );
+        );
 
-        // TODO: Ensure this AND CLI commands match domain model
         public enum DIRECTION
         {
-            NORTH, SOUTH, EAST, WEST
+            NORTH,
+            SOUTH,
+            EAST,
+            WEST
         }
 
-        GameStatus status = new GameStatus();
+        private GameStatus status;
 
         public GameController()
         {
-            status.characterName = DEFAULT_CHARACTER_NAME;
-            //Set current position to a nonsense place until you figure out who should initialize
-            status.currentPosition = new Point(-1,-1);
-            //TODO: Write a failing unit test that will force you to set this to the right number
-            status.moveCount = -100;
+            status = new GameStatus
+            {
+                characterName = DEFAULT_CHARACTER_NAME,
+                currentPosition = new Point(0, 0),
+                moveCount = 100
+            };
         }
 
-        // Pre-implemented to demonstrate ATDD
-        // TODO: Update this if it does not match your design
-        public void CreateCharacter(String name)
+        public void CreateCharacter(string name)
         {
-            if (name != null && !name.Equals(""))
+            if (!string.IsNullOrEmpty(name))
             {
-                this.status.characterName = name;
+                status.characterName = name;
             }
             else
             {
-                this.status.characterName = DEFAULT_CHARACTER_NAME;
+                status.characterName = DEFAULT_CHARACTER_NAME;
             }
         }
 
@@ -52,31 +53,44 @@ namespace levelup
 
         public GameStatus GetStatus()
         {
-            return this.status;
+            return status;
         }
 
         public void Move(DIRECTION directionToMove)
         {
-            //TODO: Implement move - should call something on another class
-            //TODO: Should probably also update the game status
+            switch (directionToMove)
+            {
+                case DIRECTION.NORTH:
+                    status.currentPosition = new Point(status.currentPosition.X, status.currentPosition.Y + 1);
+                    break;
+                case DIRECTION.SOUTH:
+                    status.currentPosition = new Point(status.currentPosition.X, status.currentPosition.Y - 1);
+                    break;
+                case DIRECTION.EAST:
+                    status.currentPosition = new Point(status.currentPosition.X - 1, status.currentPosition.Y);
+                    break;
+                case DIRECTION.WEST:
+                    status.currentPosition = new Point(status.currentPosition.X + 1, status.currentPosition.Y);
+                    break;
+            }
+
+            status.moveCount++;
         }
 
         public void SetCharacterPosition(Point coordinates)
         {
-            //TODO: IMPLEMENT THIS TO SET CHARACTERS CURRENT POSITION -- exists to be testable
+            status.currentPosition = coordinates;
         }
 
         public void SetCurrentMoveCount(int moveCount)
         {
-            //TODO: IMPLEMENT THIS TO SET CURRENT MOVE COUNT -- exists to be testable
+            status.moveCount = moveCount;
         }
 
         public int GetTotalPositions()
         {
-            //TODO: IMPLEMENT THIS TO GET THE TOTAL POSITIONS FROM THE MAP -- exists to be testable
+            // TODO: IMPLEMENT THIS TO GET THE TOTAL POSITIONS FROM THE MAP -- exists to be testable
             return -10;
         }
-
-
     }
 }
