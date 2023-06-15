@@ -1,6 +1,4 @@
 using System;
-using System.Drawing;
-using FluentAssertions;
 using levelup;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -13,7 +11,7 @@ namespace DotNetExample.Tests.Steps
         GameController testObj = new GameController();
         int startX, startY;
         GameController.DIRECTION direction;
-        Point currentPosition;
+        int currentPositionX, currentPositionY, startingMoveCount;
 
         [Given(@"the character starts at position with XCoordinates (.*)")]
         public void givenTheCharacterStartsAtX(int startX)
@@ -27,44 +25,48 @@ namespace DotNetExample.Tests.Steps
             this.startY = startY;
         }
 
+        [Given(@"the current move count is (.*)")]
+        public void givenTheCurrentMoveCountIs(int moveCount)
+        {
+            this.startingMoveCount = moveCount;
+        }
+
         [Given(@"the player chooses to move in (.*)")]
         public void givenPlayerChoosesDirection(String direction) {
             this.direction = (GameController.DIRECTION) Enum.Parse(typeof(GameController.DIRECTION) , direction);
         }
 
-        [Given(@"the current move count is (.*)")]
-        public void givenTheCurrentMoveCountIs(int currentMoveCount)
-        {
-            testObj.SetCurrentMoveCount(currentMoveCount);
-        }
-
         [When(@"the character moves")]
         public void whenTheCharacterMoves()
         {
-            testObj.SetCharacterPosition(new Point(this.startX, this.startY));
+            testObj.CreateCharacter("");
+            testObj.StartGame();
+            testObj.SetCharacterPosition(this.startX, this.startY);
+            testObj.SetMoveCount(this.startingMoveCount);
             testObj.Move(this.direction);
             GameController.GameStatus status = testObj.GetStatus();
-            this.currentPosition = status.currentPosition;
+            this.currentPositionX = status.currentPosition.x;
+            this.currentPositionY = status.currentPosition.y;
         }
 
         [Then(@"the character is now at position with XCoordinates (.*)")]
         public void checkXCoordinates(int endX)
         {
-            Assert.NotNull(this.currentPosition, "Expected position not null" );
-            Assert.AreEqual(endX, this.currentPosition.X);
+            Assert.NotNull(this.currentPositionX, "Expected position not null" );
+            Assert.AreEqual(endX, this.currentPositionX);
         }
 
         [Then(@"YCoordinates  (.*)")]
         public void checkYCoordinates(int endY)
         {
-            Assert.NotNull(this.currentPosition, "Expected position not null");
-            Assert.AreEqual(endY, this.currentPosition.Y);
+            Assert.NotNull(this.currentPositionY, "Expected position not null");
+            Assert.AreEqual(endY, this.currentPositionY);
         }
 
-        [Then(@"the new move count is (.*)")]
-        public void checkNewMoveCount(int endingMoveCount)
+        [Then(@"ending move count (.*)")]
+        public void givenTheEndingMoveCountIs(int moveCount)
         {
-            Assert.AreEqual(testObj.GetStatus().moveCount, endingMoveCount);
+            Assert.AreEqual(moveCount, testObj.GetStatus().moveCount);
         }
     }
 }

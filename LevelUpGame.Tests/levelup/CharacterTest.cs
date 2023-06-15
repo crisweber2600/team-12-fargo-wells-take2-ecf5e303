@@ -1,40 +1,52 @@
-using NUnit.Framework;
 using levelup;
+using NUnit.Framework;
 
 namespace levelup
 {
     [TestFixture]
     public class CharacterTest
     {
-        private Character? testCharacter;
+        private Character? testObj;
+        string arbitraryName = "Arbitrary Name";
 
         [SetUp]
         public void SetUp()
         {
-            testCharacter = new Character();
+            testObj = new Character(arbitraryName);
         }
 
         [Test]
-        public void IsGameResultInitialized()
+        public void CharacterHasNameAndMoveCountWhenInitialized()
         {
-        #pragma warning disable CS8602 // Rethrow to preserve stack details
-            Assert.IsNotNull(testCharacter);
+            Assert.AreEqual(arbitraryName, testObj.Name);
+            Assert.AreEqual(0, testObj.moveCount);
         }
 
         [Test]
-        public void IsUsingPassedName()
+        public void CharacterHasNewPositionOnEnterMap()
         {
-            string name = "TestCharacter";
-            Character namedCharacter = new Character(name);
-        #pragma warning disable CS8602 // Rethrow to preserve stack details
-            Assert.AreEqual(namedCharacter.name, name);
+            FakeGameMap m = new FakeGameMap();
+            testObj.EnterMap(m);
+            Assert.AreEqual(m.startingPosition, testObj.Position);
+            Assert.AreEqual(m, testObj.gameMap);
         }
 
         [Test]
-        public void IsUsingDefaultName()
+        public void CharacterHasNewPositionOnMove()
         {
-        #pragma warning disable CS8602 // Rethrow to preserve stack details
-            Assert.AreEqual(testCharacter.name, testCharacter.DEFAULT_CHARACTER_NAME);
+            FakeGameMap m = new FakeGameMap();
+            testObj.gameMap = m;
+            testObj.Move(GameController.DIRECTION.NORTH);
+            Assert.AreEqual(m.stubbedPosition, testObj.Position);
         }
+
+        [Test]
+        public void CharacterIncrementsMoveCountOnMove()
+        {
+            testObj.gameMap = new FakeGameMap();
+            testObj.Move(GameController.DIRECTION.SOUTH);
+            Assert.AreEqual(1, testObj.moveCount);
+        }
+        
     }
 }

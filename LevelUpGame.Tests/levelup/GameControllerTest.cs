@@ -1,128 +1,71 @@
-using NUnit.Framework;
 using levelup;
-using static levelup.GameController;
-using System.Drawing;
+using NUnit.Framework;
 
 namespace levelup
 {
     [TestFixture]
     public class GameControllerTest
     {
-        private GameController? gameController;
+        private GameController? testObj;
 
         [SetUp]
         public void SetUp()
         {
-            gameController = new GameController();
+            testObj = new GameController();
         }
 
         [Test]
         public void IsGameResultInitialized()
         {
-#pragma warning disable CS8602 // Rethrow to preserve stack details
-            Assert.IsNotNull(gameController.GetStatus());
+            #pragma warning disable CS8602 // Rethrow to preserve stack details
+            Assert.IsNotNull(testObj.GetStatus());
         }
 
         [Test]
-        public void CreateCharacter_DefaultName_StatusCharacterNameIsDefaultCharacterName()
+        public void CreateCharacterInitsChar()
         {
-            // Arrange
-            string expectedName = gameController.DEFAULT_CHARACTER_NAME;
-
-            // Act
-            gameController.CreateCharacter(null);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(expectedName, status.characterName);
+            testObj.CreateCharacter("ARBITRARY NAME");
+            Assert.AreEqual("ARBITRARY NAME", testObj.character.Name);
+            Assert.AreEqual("ARBITRARY NAME", testObj.GetStatus().characterName);
         }
 
         [Test]
-        public void CreateCharacter_CustomName_StatusCharacterNameIsCustomName()
+        public void StartGameCreatesMap()
         {
-            // Arrange
-            string customName = "John";
-
-            // Act
-            gameController.CreateCharacter(customName);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(customName, status.characterName);
+            testObj.StartGame();
+            Assert.NotNull(testObj.gameMap);
         }
 
         [Test]
-        public void Move_North_CurrentPositionYIncreasesBy1()
+        public void StartGameEntersMapAndUpdatesStatus() 
         {
-            // Arrange
-            Point initialPosition = new Point(0, 0);
-            gameController.SetCharacterPosition(initialPosition);
-
-            // Act
-            gameController.Move(GameController.DIRECTION.NORTH);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(initialPosition.X, status.currentPosition.X);
-            Assert.AreEqual(initialPosition.Y + 1, status.currentPosition.Y);
+            FakeGameMap fakeMap = new FakeGameMap();
+            testObj.gameMap = fakeMap;
+            testObj.StartGame();
+            Assert.AreEqual(fakeMap.startingPosition.x, testObj.GetStatus().currentPosition.x);
+            Assert.AreEqual(fakeMap.startingPosition.y, testObj.GetStatus().currentPosition.y);
         }
 
         [Test]
-        public void Move_South_CurrentPositionYIncreasesBy1()
+        public void MoveDelegatesToCharacter()
         {
-            // Arrange
-            Point initialPosition = new Point(0, 0);
-            gameController.SetCharacterPosition(initialPosition);
-
-            // Act
-            gameController.Move(GameController.DIRECTION.SOUTH);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(initialPosition.X, status.currentPosition.X);
-            Assert.AreEqual(initialPosition.Y - 1, status.currentPosition.Y);
+            MockCharacter mockChar = new MockCharacter("");
+            testObj.character = mockChar;
+            testObj.Move(GameController.DIRECTION.EAST);
+            mockChar = (MockCharacter) testObj.character;
+            Assert.AreEqual(GameController.DIRECTION.EAST, mockChar.lastDirectionCalled);
+            Assert.AreEqual(1, mockChar.timesCalled);
         }
 
         [Test]
-        public void Move_East_CurrentPositionXDecreasesBy1()
+        public void MoveUpdatesStatus()
         {
-            // Arrange
-            Point initialPosition = new Point(0, 0);
-            gameController.SetCharacterPosition(initialPosition);
-
-            // Act
-            gameController.Move(GameController.DIRECTION.EAST);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(initialPosition.X - 1, status.currentPosition.X);
-            Assert.AreEqual(initialPosition.Y, status.currentPosition.Y);
-        }
-
-        [Test]
-        public void Move_West_CurrentPositionXIncreasesBy1()
-        {
-            // Arrange
-            Point initialPosition = new Point(0, 0);
-            gameController.SetCharacterPosition(initialPosition);
-
-            // Act
-            gameController.Move(GameController.DIRECTION.WEST);
-            GameStatus status = gameController.GetStatus();
-
-            // Assert
-            Assert.AreEqual(initialPosition.X + 1, status.currentPosition.X);
-            Assert.AreEqual(initialPosition.Y, status.currentPosition.Y);
-        }
-
-        [Test]
-        public void GetTotalPositions_Default_ReturnsNegativeTen()
-        {
-            // Act
-            int totalPositions = gameController.GetTotalPositions();
-
-            // Assert
-            Assert.AreEqual(-10, totalPositions);
+            MockCharacter mockChar = new MockCharacter("");
+            testObj.character = mockChar;
+            testObj.Move(GameController.DIRECTION.WEST);
+            mockChar = (MockCharacter)testObj.character;
+            Assert.AreEqual(mockChar.Position, testObj.GetStatus().currentPosition);
+            Assert.AreEqual(mockChar.moveCount, testObj.GetStatus().moveCount);
         }
     }
 }

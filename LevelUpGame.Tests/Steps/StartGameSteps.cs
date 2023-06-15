@@ -1,10 +1,8 @@
-using System;
 using FluentAssertions;
-using levelup;
-using NUnit.Framework;
+using LevelUpGame.levelup;
 using TechTalk.SpecFlow;
 
-namespace DotNetExample.Tests.Steps
+namespace LevelUpGame.Test.Steps
 {
     [Binding]
     public class StartGameSteps
@@ -37,7 +35,8 @@ namespace DotNetExample.Tests.Steps
         }
 
         [Then(@"the move count is(.*)")]
-        public void checkMoveCount(int moveCount) {
+        public void checkMoveCount(int moveCount)
+        {
             testObj.GetStatus().moveCount.Should().Be(moveCount);
         }
     }
