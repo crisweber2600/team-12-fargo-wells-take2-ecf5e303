@@ -1,0 +1,64 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: make bootstrap
+
+    - name: Build
+      run: make cibuild
+
+    - name: Test
+      run: make test
+
+  acceptance-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: make bootstrap
+
+    - name: Build
+      run: make cibuild
+
+    - name: Run acceptance tests
+      run: dotnet test --filter "TestCategory=acceptance"
+
+    - name: Copy results
+      if: always()
+      run: cp -r LevelUpGame.Tests/resources ./test-results
+
+    - name: Export pretty results
+      if: always()
+      run: export DOTNET_ROOT=$(which dotnet) & livingdoc test-assembly LevelUpGame.Tests/bin/Debug/net6.0/LevelUpGame.Tests.dll -t LevelUpGame.Tests/bin/Debug/net6.0/TestExecution.json -o test-results/TestOutput.html
+
+    - name: Publish Tests
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./test-results
