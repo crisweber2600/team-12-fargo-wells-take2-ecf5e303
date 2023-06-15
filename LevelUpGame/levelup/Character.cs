@@ -7,6 +7,9 @@ namespace LevelUpGame.levelup
         private int timesCalled;
         public object? gameMap;
         public int moveCount { get; set; }
+        public int timesCalled {get; set; }
+        public DIRECTION lastDirectionCalled {get; set; }
+        public Position position {get; set; }
 
         public Position Position { get; set; }
         public string Name { get; set; }
