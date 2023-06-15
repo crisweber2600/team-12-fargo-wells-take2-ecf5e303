@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using levelup;
 using Sharprompt;
 
 namespace LevelUpGame.Test.levelup

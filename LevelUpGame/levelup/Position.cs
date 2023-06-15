@@ -1,4 +1,4 @@
-namespace levelup
+namespace LevelUpGame.levelup
 {
     public class Position
     {

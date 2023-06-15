@@ -1,9 +1,10 @@
+using LevelUpGame.levelup;
 
-namespace levelup
+namespace LevelUpGame.Test.levelup
 {
     public class FakeGameMap : GameMap
     {
-        public Position stubbedPosition = new Position(3,4);
+        public Position stubbedPosition = new Position(3, 4);
 
         public FakeGameMap()
         {
@@ -13,6 +14,5 @@ namespace levelup
         {
             return stubbedPosition;
         }
-
     }
 }

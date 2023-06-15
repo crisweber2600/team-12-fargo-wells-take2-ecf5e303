@@ -1,5 +1,6 @@
+using LevelUpGame.levelup;
 
-namespace levelup
+namespace LevelUpGame.Test.levelup
 {
     public class MockCharacter : Character
     {
@@ -8,7 +9,7 @@ namespace levelup
 
         public MockCharacter(string name)
         {
-            this.Name = name;
+            this.name = name;
             this.timesCalled = 0;
             this.moveCount = 0;
         }
@@ -17,9 +18,8 @@ namespace levelup
         {
             this.lastDirectionCalled = direction;
             this.timesCalled++;
-            this.Position = new Position(3,4);
+            this.Position = new Position(3, 4);
             this.moveCount = 3;
         }
-
     }
 }

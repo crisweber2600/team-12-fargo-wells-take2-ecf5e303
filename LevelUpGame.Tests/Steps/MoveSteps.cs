@@ -1,9 +1,8 @@
 using System;
-using levelup;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace DotNetExample.Tests.Steps
+namespace LevelUpGame.Test.Steps
 {
     [Binding]
     public class MoveSteps
@@ -32,8 +31,9 @@ namespace DotNetExample.Tests.Steps
         }
 
         [Given(@"the player chooses to move in (.*)")]
-        public void givenPlayerChoosesDirection(String direction) {
-            this.direction = (GameController.DIRECTION) Enum.Parse(typeof(GameController.DIRECTION) , direction);
+        public void givenPlayerChoosesDirection(String direction)
+        {
+            this.direction = (GameController.DIRECTION)Enum.Parse(typeof(GameController.DIRECTION), direction);
         }
 
         [When(@"the character moves")]
@@ -52,7 +52,7 @@ namespace DotNetExample.Tests.Steps
         [Then(@"the character is now at position with XCoordinates (.*)")]
         public void checkXCoordinates(int endX)
         {
-            Assert.NotNull(this.currentPositionX, "Expected position not null" );
+            Assert.NotNull(this.currentPositionX, "Expected position not null");
             Assert.AreEqual(endX, this.currentPositionX);
         }
 

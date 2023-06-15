@@ -1,12 +1,11 @@
-using levelup;
 using NUnit.Framework;
 
-namespace levelup
+namespace LevelUpGame.Test.levelup
 {
     [TestFixture]
     public class CharacterTest
     {
-        private Character? testObj;
+        private MockCharacter? testObj;
         string arbitraryName = "Arbitrary Name";
 
         [SetUp]
@@ -47,6 +46,5 @@ namespace levelup
             testObj.Move(GameController.DIRECTION.SOUTH);
             Assert.AreEqual(1, testObj.moveCount);
         }
-        
     }
 }

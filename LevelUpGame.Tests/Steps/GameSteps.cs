@@ -1,10 +1,7 @@
-using TechTalk.SpecFlow;
 using System;
-using NUnit.Framework;
-using FluentAssertions;
-using levelup;
+using TechTalk.SpecFlow;
 
-namespace DotNetExample.Tests.Steps
+namespace LevelUpGame.Test.Steps
 {
     [Binding]
     public class GameSteps
@@ -31,6 +28,7 @@ namespace DotNetExample.Tests.Steps
             testObj = new GameController();
             testObj.CreateCharacter(characterName);
         }
+
         [Then(@"the Game sets the character's name to (.*)")]
         public void ThenTheResultShouldBe(string characterNameOutput)
         {
