@@ -32,7 +32,7 @@ namespace LevelUpGame.levelup
 
         public void EnterMap(GameMap GameMap)
         {
-            throw new NotImplementedException();
+            this.gameMap = GameMap;
         }
     }
 
