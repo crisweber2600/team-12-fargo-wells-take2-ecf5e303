@@ -29,5 +29,12 @@ namespace levelup
         #pragma warning disable CS8602 // Rethrow to preserve stack details
             Assert.AreEqual(namedCharacter.name, name);
         }
+
+        [Test]
+        public void IsUsingDefaultName()
+        {
+        #pragma warning disable CS8602 // Rethrow to preserve stack details
+            Assert.AreEqual(testCharacter.name, testCharacter.DEFAULT_CHARACTER_NAME);
+        }
     }
 }
