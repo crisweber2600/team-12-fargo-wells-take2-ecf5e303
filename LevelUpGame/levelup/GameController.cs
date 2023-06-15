@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace LevelUpGame.levelupGame.levelup
+namespace LevelUpGame.levelup
 {
     public class GameController
     {
@@ -9,7 +9,7 @@ namespace LevelUpGame.levelupGame.levelup
         public record struct GameStatus(
             // TODO: Add other status data
             string characterName,
-            Point currentPosition,
+            Position currentPosition,
             int moveCount
         );
 
@@ -22,13 +22,15 @@ namespace LevelUpGame.levelupGame.levelup
         }
 
         private GameStatus status;
+        public Character character;
+        public GameMap gameMap;
 
         public GameController()
         {
             status = new GameStatus
             {
                 characterName = DEFAULT_CHARACTER_NAME,
-                currentPosition = new Point(0, 0),
+                currentPosition = new Position(0, 0),
                 moveCount = 100
             };
         }
@@ -61,23 +63,23 @@ namespace LevelUpGame.levelupGame.levelup
             switch (directionToMove)
             {
                 case DIRECTION.NORTH:
-                    status.currentPosition = new Point(status.currentPosition.X, status.currentPosition.Y + 1);
+                    status.currentPosition = new Position(status.currentPosition.x, status.currentPosition.y + 1);
                     break;
                 case DIRECTION.SOUTH:
-                    status.currentPosition = new Point(status.currentPosition.X, status.currentPosition.Y - 1);
+                    status.currentPosition = new Position(status.currentPosition.x, status.currentPosition.y - 1);
                     break;
                 case DIRECTION.EAST:
-                    status.currentPosition = new Point(status.currentPosition.X - 1, status.currentPosition.Y);
+                    status.currentPosition = new Position(status.currentPosition.x - 1, status.currentPosition.y);
                     break;
                 case DIRECTION.WEST:
-                    status.currentPosition = new Point(status.currentPosition.X + 1, status.currentPosition.Y);
+                    status.currentPosition = new Position(status.currentPosition.x + 1, status.currentPosition.y);
                     break;
             }
 
             status.moveCount++;
         }
 
-        public void SetCharacterPosition(Point coordinates)
+        public void SetCharacterPosition(Position coordinates)
         {
             status.currentPosition = coordinates;
         }
@@ -91,6 +93,11 @@ namespace LevelUpGame.levelupGame.levelup
         {
             // TODO: IMPLEMENT THIS TO GET THE TOTAL POSITIONS FROM THE MAP -- exists to be testable
             return -10;
+        }
+
+        public void SetMoveCount(int startingMoveCount)
+        {
+            throw new NotImplementedException();
         }
     }
 }

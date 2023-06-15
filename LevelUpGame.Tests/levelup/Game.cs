@@ -108,7 +108,7 @@ namespace LevelUpGame.Test.levelup
             foreach (GameController.GameStatus status in gameHistory)
             {
                 Console.WriteLine(
-                    $"Character: {status.characterName}, Position: ({status.currentPosition.X}, {status.currentPosition.Y}), Moves: {status.moveCount}");
+                    $"Character: {status.characterName}, Position: ({status.currentPosition.x}, {status.currentPosition.y}), Moves: {status.moveCount}");
             }
         }
 

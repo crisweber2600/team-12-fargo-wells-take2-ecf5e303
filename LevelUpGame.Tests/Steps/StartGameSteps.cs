@@ -25,13 +25,13 @@ namespace LevelUpGame.Test.Steps
         [Then(@"the Game sets the character's X position to (.*)")]
         public void checkXPosition(int xPosition)
         {
-            testObj.GetStatus().currentPosition.X.Should().Be(xPosition);
+            testObj.GetStatus().currentPosition.x.Should().Be(xPosition);
         }
 
         [Then(@"the Game sets the character's Y position to (.*)")]
         public void checkYPosition(int yPosition)
         {
-            testObj.GetStatus().currentPosition.Y.Should().Be(yPosition);
+            testObj.GetStatus().currentPosition.y.Should().Be(yPosition);
         }
 
         [Then(@"the move count is(.*)")]

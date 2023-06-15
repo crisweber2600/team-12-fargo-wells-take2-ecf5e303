@@ -42,7 +42,7 @@ namespace LevelUpGame.Test.Steps
         {
             testObj.CreateCharacter("");
             testObj.StartGame();
-            testObj.SetCharacterPosition(this.startX, this.startY);
+            testObj.SetCharacterPosition(new Position(this.startX, this.startY));
             testObj.SetMoveCount(this.startingMoveCount);
             testObj.Move(this.direction);
             GameController.GameStatus status = testObj.GetStatus();

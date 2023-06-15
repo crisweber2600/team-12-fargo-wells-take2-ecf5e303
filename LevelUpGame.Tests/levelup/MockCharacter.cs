@@ -9,7 +9,7 @@ namespace LevelUpGame.Test.levelup
 
         public MockCharacter(string name)
         {
-            this.name = name;
+            this.Name = name;
             this.timesCalled = 0;
             this.moveCount = 0;
         }

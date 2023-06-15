@@ -3,12 +3,17 @@ namespace LevelUpGame.levelup
     public class Character
     {
         public readonly string DEFAULT_CHARACTER_NAME = "Character";
-        public string name { get; set; }
+        private GameController.DIRECTION lastDirectionCalled;
+        private int timesCalled;
+        public object? gameMap;
         public int moveCount { get; set; }
+
+        public Position Position { get; set; }
+        public string Name { get; set; }
 
         public Character()
         {
-            this.name = DEFAULT_CHARACTER_NAME;
+            this.Name = DEFAULT_CHARACTER_NAME;
         }
 
         public virtual void Move(GameController.DIRECTION direction)
@@ -21,7 +26,16 @@ namespace LevelUpGame.levelup
 
         public Character(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
+
+        public void EnterMap(GameMap GameMap)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FakeGameMap : GameMap
+    {
     }
 }

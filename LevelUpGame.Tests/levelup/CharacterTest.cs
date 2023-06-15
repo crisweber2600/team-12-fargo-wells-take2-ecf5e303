@@ -6,7 +6,7 @@ namespace LevelUpGame.Test.levelup
     [TestFixture]
     public class CharacterTest
     {
-        private MockCharacter? testObj;
+        private Character? testObj;
         string arbitraryName = "Arbitrary Name";
 
         [SetUp]
