@@ -1,3 +1,5 @@
+using FluentAssertions;
+using LevelUpGame.levelup;
 using TechTalk.SpecFlow;
 
 namespace LevelUpGame.Test.Steps

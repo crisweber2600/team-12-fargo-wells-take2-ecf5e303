@@ -1,3 +1,4 @@
+using LevelUpGame.levelup;
 using NUnit.Framework;
 
 namespace LevelUpGame.Test.levelup
