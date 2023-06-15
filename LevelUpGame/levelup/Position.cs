@@ -7,7 +7,8 @@ namespace LevelUpGame.levelup
 
         public Position(int x, int y)
         {
-            //TODO
+            this.x = x;
+            this.y = y;
         }
 
 

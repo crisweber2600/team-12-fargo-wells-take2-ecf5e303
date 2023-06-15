@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace LevelUpGame.levelupGame.levelup
+namespace LevelUpGame.levelup
 {
     public class GameController
     {
