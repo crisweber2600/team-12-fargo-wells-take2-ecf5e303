@@ -80,7 +80,7 @@ namespace levelup
 
             // Assert
             Assert.AreEqual(initialPosition.X, status.currentPosition.X);
-            Assert.AreEqual(initialPosition.Y + 1, status.currentPosition.Y);
+            Assert.AreEqual(initialPosition.Y - 1, status.currentPosition.Y);
         }
 
         [Test]
