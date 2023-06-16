@@ -1,4 +1,4 @@
-namespace LevelUpGame.levelup
+namespace levelup
 {
     public class GameMap
     {
@@ -12,12 +12,12 @@ namespace LevelUpGame.levelup
 
         private void CreatePositions()
         {
-           //TODO
+            //TODO
         }
 
         public virtual Position CalculateNewPosition(Position currentPosition, GameController.DIRECTION direction)
         {
-             Position newPos = new Position(-1,-1);
+            Position newPos = new Position(-1, -1);
             //TODO
 
             return newPos;
@@ -25,11 +25,9 @@ namespace LevelUpGame.levelup
 
         public bool IsPositionValid(Position pos)
         {
-          
             //TODO
 
             return false;
         }
-
     }
 }
