@@ -1,7 +1,14 @@
-
 namespace levelup
 {
-    public class Character
+    public class CombatEntity
+    {
+        public int Health { get; set; }
+        public int AttackPower { get; set; }
+        public int DefensePower { get; set; }
+    }
+
+
+    public class Character : CombatEntity
     {
         public string? Name { get; set; }
         public Position? Position { get; set; }
@@ -13,14 +20,14 @@ namespace levelup
         {
             this.Name = name;
             this.moveCount = 0;
-            this.Position = new Position(0,0);
+            this.Position = new Position(0, 0);
         }
 
         public Character()
         {
             this.Name = "";
             this.moveCount = 0;
-            this.Position = new Position(0,0);
+            this.Position = new Position(0, 0);
         }
 
         public void EnterMap(GameMap map)
@@ -34,12 +41,12 @@ namespace levelup
             if (this.gameMap != null)
             {
                 this.Position = gameMap.CalculateNewPosition(this.Position, direction);
-                this.moveCount+=1;
+                this.moveCount += 1;
             }
-            else {
+            else
+            {
                 this.Position = null;
             }
         }
-
     }
 }

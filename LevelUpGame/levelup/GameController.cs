@@ -61,6 +61,34 @@ namespace levelup
             this.status.characterName = character.Name;
         }
 
+
+        public void ResolveCombat(Monster monster)
+        {
+            while (character.Health > 0 && monster.Health > 0)
+            {
+                // Character attacks monster
+                Attack(character, monster);
+
+                // Monster attacks character if it's still alive
+                if (monster.Health > 0)
+                {
+                    Attack(monster, character);
+                }
+            }
+        }
+
+        public void Attack(CombatEntity attacker, CombatEntity defender)
+        {
+            int damage = Math.Max(0, attacker.AttackPower - defender.DefensePower);
+            defender.Health -= damage;
+
+            if (defender.Health <= 0)
+            {
+                // Defender is defeated
+                // Reward the character or handle defeat
+            }
+        }
+
         public void StartGame()
         {
             gameMap = new GameMap();
@@ -84,6 +112,27 @@ namespace levelup
             character.Move(directionToMove);
             this.status.currentPosition = character.Position;
             this.status.moveCount = character.moveCount;
+            if (CheckForMonsterEncounter(character.Position))
+            {
+                var monster = GetMonsterAtPosition(character.Position);
+                if (monster != null)
+                {
+                    ResolveCombat(monster);
+                }
+            }
+        }
+
+        public Monster GetMonsterAtPosition(Position position)
+        {
+            foreach (var monster in gameMap.Monsters)
+            {
+                if (monster.Position.x == position.x && monster.Position.y == position.y)
+                {
+                    return monster;
+                }
+            }
+
+            return null;
         }
 
         public void SetCharacterPosition(int x, int y)

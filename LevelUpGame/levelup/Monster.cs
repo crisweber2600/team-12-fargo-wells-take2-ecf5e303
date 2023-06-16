@@ -1,6 +1,6 @@
 ﻿namespace levelup
 {
-    public class Monster
+    public class Monster : CombatEntity
     {
         public string Name { get; set; }
         public Position Position { get; set; }
