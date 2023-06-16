@@ -1,7 +1,7 @@
-using LevelUpGame.levelup;
+using levelup;
 using NUnit.Framework;
 
-namespace LevelUpGame.Test.levelup
+namespace levelup
 {
     [TestFixture]
     public class GameMapTest
@@ -19,7 +19,7 @@ namespace LevelUpGame.Test.levelup
         {
             Assert.NotNull(testObj.positions);
             Assert.AreEqual(100, testObj.positions.Length);
-            Position samplePosition = testObj.positions[4, 3];
+            Position samplePosition = testObj.positions[4,3];
             Assert.AreEqual(4, samplePosition.x);
             Assert.AreEqual(3, samplePosition.y);
             Assert.NotNull(testObj.startingPosition);
@@ -28,7 +28,7 @@ namespace LevelUpGame.Test.levelup
         [Test]
         public void TestCalcPositionInCenterOfBoardEast()
         {
-            Position startPos = testObj.positions[3, 4];
+            Position startPos = testObj.positions[3,4];
             Position newPos = testObj.CalculateNewPosition(startPos, GameController.DIRECTION.EAST);
             Assert.AreEqual(4, newPos.x);
             Assert.AreEqual(startPos.y, newPos.y);
@@ -64,13 +64,13 @@ namespace LevelUpGame.Test.levelup
         [Test]
         public void IsPositionValid()
         {
-            Position valid = new Position(0, 3);
+            Position valid = new Position(0,3);
             Assert.True(testObj.IsPositionValid(valid));
             valid = new Position(0, 0);
             Assert.True(testObj.IsPositionValid(valid));
             valid = new Position(3, 9);
             Assert.True(testObj.IsPositionValid(valid));
-            Position inValidX = new Position(-1, 5);
+            Position inValidX = new Position(-1,5);
             Assert.False(testObj.IsPositionValid(inValidX));
             Position inValidY = new Position(1, -5);
             Assert.False(testObj.IsPositionValid(inValidY));
@@ -86,5 +86,7 @@ namespace LevelUpGame.Test.levelup
             Assert.AreEqual(startPos.x, newPos.x);
             Assert.AreEqual(startPos.y, newPos.y);
         }
+
+        
     }
 }

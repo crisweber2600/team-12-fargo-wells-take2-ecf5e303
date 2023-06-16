@@ -1,7 +1,7 @@
-using LevelUpGame.levelup;
+using levelup;
 using NUnit.Framework;
 
-namespace LevelUpGame.Test.levelup
+namespace levelup
 {
     [TestFixture]
     public class GameControllerTest
@@ -17,7 +17,7 @@ namespace LevelUpGame.Test.levelup
         [Test]
         public void IsGameResultInitialized()
         {
-#pragma warning disable CS8602 // Rethrow to preserve stack details
+            #pragma warning disable CS8602 // Rethrow to preserve stack details
             Assert.IsNotNull(testObj.GetStatus());
         }
 
@@ -37,7 +37,7 @@ namespace LevelUpGame.Test.levelup
         }
 
         [Test]
-        public void StartGameEntersMapAndUpdatesStatus()
+        public void StartGameEntersMapAndUpdatesStatus() 
         {
             FakeGameMap fakeMap = new FakeGameMap();
             testObj.gameMap = fakeMap;
@@ -52,7 +52,7 @@ namespace LevelUpGame.Test.levelup
             MockCharacter mockChar = new MockCharacter("");
             testObj.character = mockChar;
             testObj.Move(GameController.DIRECTION.EAST);
-            mockChar = (MockCharacter)testObj.character;
+            mockChar = (MockCharacter) testObj.character;
             Assert.AreEqual(GameController.DIRECTION.EAST, mockChar.lastDirectionCalled);
             Assert.AreEqual(1, mockChar.timesCalled);
         }
