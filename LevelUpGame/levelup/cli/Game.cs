@@ -96,7 +96,9 @@ class Game
     private static void printWelcomeMessage()
     {
         Console.WriteLine("-------------------------------------------------");
-        Console.WriteLine("LEVEL UP GAMES");
+        Console.WriteLine("           |   Wells   |");
+        Console.WriteLine("           |    of     |");
+        Console.WriteLine("           |   Danger  |");
         Console.WriteLine("-------------------------------------------------");
         Console.WriteLine("Use your arrow keys to select a command below");
         Console.WriteLine("Create a character with a custom name.");
