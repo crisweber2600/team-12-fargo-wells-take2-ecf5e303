@@ -9,25 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Features\Game.feature.cs" />
-    <Compile Remove="Features\Move.feature.cs" />
-    <Compile Remove="Features\StartGame.feature.cs" />
-    <Compile Remove="levelup\FakeGameMap.cs" />
-    <Compile Remove="levelup\Game.cs" />
-    <Compile Remove="levelup\GameControllerTest.cs" />
-    <Compile Remove="levelup\GameMapTest.cs" />
-    <Compile Remove="Steps\GameSteps.cs" />
-    <Compile Remove="Steps\MoveSteps.cs" />
-    <Compile Remove="Steps\StartGameSteps.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <SpecFlowFeatureFiles Remove="Features\Game.feature" />
-    <SpecFlowFeatureFiles Remove="Features\Move.feature" />
-    <SpecFlowFeatureFiles Remove="Features\StartGame.feature" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.5.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
