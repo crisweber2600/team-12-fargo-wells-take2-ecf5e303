@@ -19,10 +19,6 @@ namespace LevelUpGame.levelup
 
         public virtual void Move(GameController.DIRECTION direction)
         {
-            this.lastDirectionCalled = direction;
-            this.timesCalled++;
-            this.Position = new Position(3, 4);
-            this.moveCount = 3;
         }
 
         public Character(string name)

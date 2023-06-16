@@ -16,8 +16,6 @@ namespace LevelUpGame.Test.levelup
 
         public override void Move(GameController.DIRECTION direction)
         {
-            this.lastDirectionCalled = direction;
-            this.timesCalled++;
             this.Position = new Position(3, 4);
             this.moveCount = 3;
         }
