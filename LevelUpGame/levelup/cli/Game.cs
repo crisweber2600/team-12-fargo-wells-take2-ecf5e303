@@ -1,5 +1,7 @@
 using Sharprompt;
 using System.Collections;
+using System.Drawing;
+
 namespace levelup.cli;
 class Game
 {
@@ -45,6 +47,7 @@ class Game
                     break;
                 case startingMenuCommands.StartGame:
                     StartGame();
+                    printMap();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -78,7 +81,10 @@ class Game
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            printMap();
         }
+            
     }
 
     static void Help()
@@ -104,6 +110,28 @@ class Game
         Console.WriteLine("Create a character with a custom name.");
         Console.WriteLine("Then, start the game to start your adventure.");
         Console.WriteLine("-------------------------------------------------");
+    }
+    private static void printMap()
+    {
+        Console.Clear();
+        Position currentPos = gameController.GetStatus().currentPosition;
+        
+        for(int i = 9; i >= 0; i--)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+
+                if (currentPos.x == j && currentPos.y == i)
+                {
+                    Console.Write(" " + "X" + " ");
+                }
+                else
+                {
+                    Console.Write("░░░" + "");
+                }
+            }
+            Console.WriteLine();
+        }
     }
 
     static void CreateCharacter()
