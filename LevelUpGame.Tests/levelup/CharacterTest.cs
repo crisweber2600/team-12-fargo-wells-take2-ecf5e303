@@ -43,8 +43,8 @@ namespace levelup
         [Test]
         public void CharacterIncrementsMoveCountOnMove()
         {
-            testObj.gameMap = new FakeGameMap();
-            testObj.Move(GameController.DIRECTION.SOUTH);
+            testObj.gameMap = new GameMap();
+            testObj.Move(GameController.DIRECTION.NORTH);
             Assert.AreEqual(1, testObj.moveCount);
         }
         

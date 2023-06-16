@@ -13,12 +13,14 @@ namespace levelup
         {
             this.Name = name;
             this.moveCount = 0;
+            this.Position = new Position(0,0);
         }
 
         public Character()
         {
             this.Name = "";
             this.moveCount = 0;
+            this.Position = new Position(0,0);
         }
 
         public void EnterMap(GameMap map)
