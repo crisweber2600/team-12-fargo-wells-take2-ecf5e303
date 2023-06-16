@@ -3,6 +3,7 @@ using System.Collections;
 using System.Drawing;
 
 namespace levelup.cli;
+
 class Game
 {
     static GameController gameController = new GameController();
@@ -26,6 +27,7 @@ class Game
         West,
         Exit
     }
+
     static void Main(string[] args)
     {
         printWelcomeMessage();
@@ -84,7 +86,6 @@ class Game
 
             printMap();
         }
-            
     }
 
     static void Help()
@@ -111,16 +112,16 @@ class Game
         Console.WriteLine("Then, start the game to start your adventure.");
         Console.WriteLine("-------------------------------------------------");
     }
+
     private static void printMap()
     {
         Console.Clear();
         Position currentPos = gameController.GetStatus().currentPosition;
-        
-        for(int i = 9; i >= 0; i--)
+
+        for (int i = 9; i >= 0; i--)
         {
             for (int j = 0; j < 10; j++)
             {
-
                 if (currentPos.x == j && currentPos.y == i)
                 {
                     Console.Write(" " + "X" + " ");
@@ -130,9 +131,26 @@ class Game
                     Console.Write("░░░" + "");
                 }
             }
+
             Console.WriteLine();
         }
+
+        gameController.CheckForMonsterEncounter(currentPos);
     }
+
+    private static bool IsPositionMonster(Position position)
+    {
+        foreach (var monster in gameController.gameMap.Monsters)
+        {
+            if (monster.Position.x == position.x && monster.Position.y == position.y)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     static void CreateCharacter()
     {
@@ -141,6 +159,7 @@ class Game
         var gameStatusCharacterName = gameController.GetStatus().characterName;
         Console.WriteLine($"Your character, {gameStatusCharacterName}, is created!");
     }
+
     static void StartGame()
     {
         isGameStarted = true;
@@ -149,26 +168,41 @@ class Game
         // the player where their character is?
         Console.WriteLine("Welcome to Forests and Monsters! You have entered a mysterious place.");
     }
+
     static void MoveNorth()
     {
         gameController.Move(GameController.DIRECTION.NORTH);
-        updateStatus(gameController.GetStatus());
+        var status = gameController.GetStatus();
+        updateStatus(status);
+
+        gameController.CheckForMonsterEncounter(status.currentPosition);
     }
+
     static void MoveSouth()
     {
         gameController.Move(GameController.DIRECTION.SOUTH);
-        updateStatus(gameController.GetStatus());
+        var status = gameController.GetStatus();
+        updateStatus(status);
+
+        gameController.CheckForMonsterEncounter(status.currentPosition);
     }
+
     static void MoveEast()
     {
         gameController.Move(GameController.DIRECTION.EAST);
-        updateStatus(gameController.GetStatus());
+        var status = gameController.GetStatus();
+        updateStatus(status);
+
+        gameController.CheckForMonsterEncounter(status.currentPosition);
     }
 
     static void MoveWest()
     {
         gameController.Move(GameController.DIRECTION.WEST);
-        updateStatus(gameController.GetStatus());
+        var status = gameController.GetStatus();
+        updateStatus(status);
+
+        gameController.CheckForMonsterEncounter(status.currentPosition);
     }
 
     static void EndGame()
@@ -192,13 +226,10 @@ class Game
             Console.WriteLine(status);
         }
         // TODO: Print anything else you committed to in your mockup
-
     }
 
     private static void updateStatus(GameController.GameStatus status)
     {
         gameHistory.Add(status);
     }
-
-
 }

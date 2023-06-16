@@ -1,5 +1,3 @@
-
-
 namespace levelup
 {
     public class GameController
@@ -18,7 +16,25 @@ namespace levelup
         // TODO: Ensure this AND CLI commands match domain model
         public enum DIRECTION
         {
-            NORTH, SOUTH, EAST, WEST
+            NORTH,
+            SOUTH,
+            EAST,
+            WEST
+        }
+
+        public bool CheckForMonsterEncounter(Position position)
+        {
+            foreach (var monster in gameMap.Monsters)
+            {
+                if (monster.Position.x == position.x && monster.Position.y == position.y)
+                {
+                    Console.WriteLine($"You've encountered a {monster.Name}!");
+                    // Handle combat here if needed
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         GameStatus status = new GameStatus();
@@ -27,7 +43,7 @@ namespace levelup
         {
             status.characterName = DEFAULT_CHARACTER_NAME;
             //Set current position to a nonsense place until you figure out who should initialize
-            status.currentPosition = new Position(-1,-1);
+            status.currentPosition = new Position(-1, -1);
             status.moveCount = 0;
         }
 
@@ -35,12 +51,13 @@ namespace levelup
         {
             if (name != null && !name.Equals(""))
             {
-                this.character = new Character(name);   
+                this.character = new Character(name);
             }
             else
             {
                 this.character = new Character(DEFAULT_CHARACTER_NAME);
             }
+
             this.status.characterName = character.Name;
         }
 
@@ -51,6 +68,7 @@ namespace levelup
             {
                 CreateCharacter("");
             }
+
             character.EnterMap(gameMap);
             this.status.characterName = character.Name;
             this.status.currentPosition = character.Position;
@@ -70,8 +88,8 @@ namespace levelup
 
         public void SetCharacterPosition(int x, int y)
         {
-           character.Position = new Position(x,y);
-           this.status.currentPosition = character.Position;
+            character.Position = new Position(x, y);
+            this.status.currentPosition = character.Position;
         }
 
         public void SetMoveCount(int moveCount)
@@ -79,6 +97,5 @@ namespace levelup
             character.moveCount = moveCount;
             this.status.moveCount = character.moveCount;
         }
-
     }
 }
