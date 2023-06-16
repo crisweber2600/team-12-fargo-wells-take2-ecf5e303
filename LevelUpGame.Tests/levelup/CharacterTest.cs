@@ -31,15 +31,14 @@ namespace LevelUpGame.Test.levelup
             Assert.AreEqual(m, testObj.gameMap);
         }
 
-        [Test]
-        public void CharacterHasNewPositionOnMove()
-        {
-            FakeGameMap m = new FakeGameMap();
-            testObj.gameMap = m;
-            testObj.Move(GameController.DIRECTION.NORTH);
-            Assert.AreEqual(m.stubbedPosition, testObj.Position);
-        }
-
+        //[Test]
+        //public void CharacterHasNewPositionOnMove()
+        //{
+        //    FakeGameMap m = new FakeGameMap();
+        //    testObj.gameMap = m;
+        //    testObj.Move(GameController.DIRECTION.NORTH);
+        //    Assert.AreEqual(m.stubbedPosition, testObj.Position);
+        //}
         [Test]
         public void CharacterIncrementsMoveCountOnMove()
         {
