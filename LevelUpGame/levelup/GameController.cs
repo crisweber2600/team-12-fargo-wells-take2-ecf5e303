@@ -1,50 +1,47 @@
-using System.Drawing;
 
-namespace LevelUpGame.levelup
+
+namespace levelup
 {
     public class GameController
     {
         public readonly string DEFAULT_CHARACTER_NAME = "Character";
+        public Character? character { get; set; }
+        public GameMap? gameMap { get; set; }
 
         public record struct GameStatus(
             // TODO: Add other status data
-            string characterName,
+            String characterName,
             Position currentPosition,
             int moveCount
         );
 
+        // TODO: Ensure this AND CLI commands match domain model
         public enum DIRECTION
         {
-            NORTH,
-            SOUTH,
-            EAST,
-            WEST
+            NORTH, SOUTH, EAST, WEST
         }
 
-        private GameStatus status;
-        public Character character;
-        public GameMap gameMap;
+        GameStatus status = new GameStatus();
 
         public GameController()
         {
-            status = new GameStatus
-            {
-                characterName = DEFAULT_CHARACTER_NAME,
-                currentPosition = new Position(0, 0),
-                moveCount = 100
-            };
+            status.characterName = DEFAULT_CHARACTER_NAME;
+            //Set current position to a nonsense place until you figure out who should initialize
+            status.currentPosition = new Position(-1,-1);
+            status.moveCount = 0;
         }
 
-        public void CreateCharacter(string name)
+        public void CreateCharacter(String name)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (name != null && !name.Equals(""))
             {
-                status.characterName = name;
+                this.character = new Character(name);   
             }
             else
             {
-                status.characterName = DEFAULT_CHARACTER_NAME;
+                this.character = new Character(DEFAULT_CHARACTER_NAME);
             }
+            this.status.characterName = character.Name;
         }
 
         public void StartGame()
@@ -55,49 +52,27 @@ namespace LevelUpGame.levelup
 
         public GameStatus GetStatus()
         {
-            return status;
+            return this.status;
         }
 
         public void Move(DIRECTION directionToMove)
         {
-            switch (directionToMove)
-            {
-                case DIRECTION.NORTH:
-                    status.currentPosition = new Position(status.currentPosition.x, status.currentPosition.y + 1);
-                    break;
-                case DIRECTION.SOUTH:
-                    status.currentPosition = new Position(status.currentPosition.x, status.currentPosition.y - 1);
-                    break;
-                case DIRECTION.EAST:
-                    status.currentPosition = new Position(status.currentPosition.x - 1, status.currentPosition.y);
-                    break;
-                case DIRECTION.WEST:
-                    status.currentPosition = new Position(status.currentPosition.x + 1, status.currentPosition.y);
-                    break;
-            }
-
-            status.moveCount++;
+            character.Move(directionToMove);
+            this.status.currentPosition = character.Position;
+            this.status.moveCount = character.moveCount;
         }
 
-        public void SetCharacterPosition(Position coordinates)
+        public void SetCharacterPosition(int x, int y)
         {
-            status.currentPosition = coordinates;
+           character.Position = new Position(x,y);
+           this.status.currentPosition = character.Position;
         }
 
-        public void SetCurrentMoveCount(int moveCount)
+        public void SetMoveCount(int moveCount)
         {
-            status.moveCount = moveCount;
+            character.moveCount = moveCount;
+            this.status.moveCount = character.moveCount;
         }
 
-        public int GetTotalPositions()
-        {
-            // TODO: IMPLEMENT THIS TO GET THE TOTAL POSITIONS FROM THE MAP -- exists to be testable
-            return -10;
-        }
-
-        public void SetMoveCount(int startingMoveCount)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

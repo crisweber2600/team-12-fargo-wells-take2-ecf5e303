@@ -1,4 +1,5 @@
-namespace LevelUpGame.levelup
+
+namespace levelup
 {
     public class Position
     {
@@ -10,5 +11,8 @@ namespace LevelUpGame.levelup
             this.x = x;
             this.y = y;
         }
+
+
+
     }
 }

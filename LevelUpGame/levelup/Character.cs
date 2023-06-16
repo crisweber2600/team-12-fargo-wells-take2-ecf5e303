@@ -1,31 +1,30 @@
-namespace LevelUpGame.levelup
+
+namespace levelup
 {
     public class Character
     {
-        public readonly string DEFAULT_CHARACTER_NAME = "Character";
-        public GameMap? gameMap;
+        public string? Name { get; set; }
+        public Position? Position { get; set; }
+        public GameMap? gameMap { get; set; }
+
         public int moveCount { get; set; }
-        public int timesCalled { get; set; }
-        public GameController.DIRECTION lastDirectionCalled { get; set; }
-        public Position position { get; set; }
-
-        public Position Position { get; set; }
-        public string Name { get; set; }
-
-        public Character()
-        {
-            this.Name = DEFAULT_CHARACTER_NAME;
-        }
-
 
         public Character(string name)
         {
             this.Name = name;
+            this.moveCount = 0;
         }
 
-        public void EnterMap(GameMap GameMap)
+        public Character()
         {
-            this.gameMap = GameMap;
+            this.Name = "";
+            this.moveCount = 0;
+        }
+
+        public void EnterMap(GameMap map)
+        {
+            this.gameMap = map;
+            this.Position = map.startingPosition;
         }
 
         public virtual void Move(GameController.DIRECTION direction)
@@ -33,16 +32,12 @@ namespace LevelUpGame.levelup
             if (this.gameMap != null)
             {
                 this.Position = gameMap.CalculateNewPosition(this.Position, direction);
-                this.moveCount += 1;
+                this.moveCount+=1;
             }
-            else
-            {
+            else {
                 this.Position = null;
             }
         }
-    }
 
-    public class FakeGameMap : GameMap
-    {
     }
 }
