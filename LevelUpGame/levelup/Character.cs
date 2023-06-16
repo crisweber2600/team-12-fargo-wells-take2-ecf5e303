@@ -17,9 +17,6 @@ namespace LevelUpGame.levelup
             this.Name = DEFAULT_CHARACTER_NAME;
         }
 
-        public virtual void Move(GameController.DIRECTION direction)
-        {
-        }
 
         public Character(string name)
         {
@@ -29,6 +26,19 @@ namespace LevelUpGame.levelup
         public void EnterMap(GameMap GameMap)
         {
             this.gameMap = GameMap;
+        }
+
+        public virtual void Move(GameController.DIRECTION direction)
+        {
+            if (this.gameMap != null)
+            {
+                this.Position = gameMap.CalculateNewPosition(this.Position, direction);
+                this.moveCount += 1;
+            }
+            else
+            {
+                this.Position = null;
+            }
         }
     }
 

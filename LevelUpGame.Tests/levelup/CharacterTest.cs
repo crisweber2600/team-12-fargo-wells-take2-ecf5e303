@@ -37,9 +37,7 @@ namespace LevelUpGame.Test.levelup
             FakeGameMap m = new FakeGameMap();
             testObj.gameMap = m;
             testObj.Move(GameController.DIRECTION.NORTH);
-            Assert.AreEqual(m.stubbedPosition.x, testObj.Position.x);
-
-            Assert.AreEqual(m.stubbedPosition.y, testObj.Position.y);
+            Assert.AreEqual(m.stubbedPosition, testObj.Position);
         }
 
         [Test]
